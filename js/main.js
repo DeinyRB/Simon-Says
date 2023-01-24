@@ -6,7 +6,7 @@ import '../assets/styles/style.scss';
 // Crer luego de () ARREGLO QUE ALMACENE LOS COLORES, MUESTRE UNA ACCION Y UN SONIDO PARA CADA COLOR por los id del index
 let colors = ['red', 'blue', 'green', 'yellow'];
 
-// PATRON DEL JUEGO
+// PATRON DEL JUEGO (variable global)
 let gameP = [];
 
 // GUARDAR EL PATRON DE CLICKS del usuario
@@ -27,6 +27,16 @@ $(document).keydown(() => {
   /* nextSequence(); (para provarlo) */
 });
 
+// EVENTO AL QUE EL USUARIO LE ESTA DANDO CLICK
+$('.container__row__btn').click(function() {
+  let userColor = $(this).attr('id');
+  
+  gameClicksP.push(userColor);
+
+  playSound(userColor);
+
+  animateclick(userColor);
+});
 
 
 // Funcion para craer la secuencia del juego 
@@ -62,7 +72,15 @@ function playSound(color) {
 }
 
 
+// FUNCION PARA ANIMAR EL CLICK
+function animateclick(userColor) {
+  $('#' + userColor).addClass('pressed');
 
+  //QUITAR LA CLASE AGREGADA
+  setTimeout(() => {
+    $('#' + userColor).removeClass('pressed');
+  }, 100);
+}
 
 
 

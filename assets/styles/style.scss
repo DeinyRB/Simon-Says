@@ -55,3 +55,9 @@ body {
     }
   }
 }
+
+/* fondo al rededor del cuadro al darle click*/
+.pressed {
+  box-shadow: 0 0 20px white;
+  background-color: grey;
+}
