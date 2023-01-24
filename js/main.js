@@ -51,8 +51,15 @@ function nextSequence() {
   //tiempo en el que desaparece al dar click fadeIn=lo aparece
   $('#' + randomColor).fadeIn(100).fadeOut(100).fadeIn(100);
 
+  /* playSound(randomColor); = provar sonidos*/
 }
 
+// Crear una funcion para EMULAR SONIDOS POR CADA COLOR
+function playSound(color) {
+  let audio = new Audio('../assets/sonidos/' + color + '.mp3');
+
+  audio.play();
+}
 
 
 
