@@ -36,6 +36,8 @@ $('.container__row__btn').click(function() {
   playSound(userColor);
 
   animateclick(userColor);
+
+  checkAnswer(gameClicksP.length - 1); 
 });
 
 
@@ -51,18 +53,46 @@ function nextSequence() {
   let randomNumber = Math.random()*4; /* para crear numeros aleatorios hasta el 4, porque lo que da Math son numeross entre cero y uno */
   randomNumber = Math.floor(randomNumber); /* Para redondearlo */
 
-  // Almacenar el numero en el patron 
-  gameP.push(randomNumber);
-
   // USAR NUMERO ALEATORIO PARA LLAMAR EL BOTON SELECCIONADO
   let randomColor;
   randomColor = colors[randomNumber];
 
-  //tiempo en el que desaparece al dar click fadeIn=lo aparece
+  // Almacenar el numero en el patron 
+  gameP.push(randomColor);
+
+        //tiempo en el que desaparece al dar click fadeIn=lo aparece
   $('#' + randomColor).fadeIn(100).fadeOut(100).fadeIn(100);
 
-  /* playSound(randomColor); = provar sonidos*/
+  playSound(randomColor); 
 }
+
+// FUNCION PARA CONFIRMAR LOS CLICKS DEL USUARIO
+function checkAnswer(currentlevel) {
+  if(gameP[currentlevel] === gameClicksP[currentlevel]) {
+    if(gameP.length === gameClicksP.length) {
+      setTimeout(() => {
+        nextSequence();
+      }, 1000);
+    }
+  } else {
+    // Mostrar sonido de error
+    playSound('wrong');
+      // clase para finalizar el juego
+    $('body').addClass('game-over');
+
+      // Cambiar titulo para poder reiniciarlo
+      $('#level-title').text('Game Over, please restart!');
+  
+      // Quitar la clase agregada
+      setTimeout(() => {
+        $('body').removeClass('game-over');
+      }, 400);
+
+      // Llamar funcion para reiniciar el juego
+      startOver();
+    }
+}
+
 
 // Crear una funcion para EMULAR SONIDOS POR CADA COLOR
 function playSound(color) {
@@ -82,8 +112,11 @@ function animateclick(userColor) {
   }, 100);
 }
 
-
-
-
+// FUNCION PARA REINICIAR EL JUEGO
+function startOver() {
+  level = 0;
+  gameP = [];
+  start = false;
+}
 
 
